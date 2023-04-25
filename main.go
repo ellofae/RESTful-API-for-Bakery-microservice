@@ -7,12 +7,16 @@ import (
 	"os"
 	"os/signal"
 	"time"
+
+	"github.com/ellofae/RESTful-API-for-Bakery-microservice/handlers"
 )
 
 func main() {
 	l := log.New(os.Stdout, "bakery-api", log.LstdFlags)
+	ph := handlers.NewProducts(l)
 
 	sm := http.NewServeMux()
+	sm.Handle("/", ph)
 
 	srv := &http.Server{
 		Addr:         ":9090",
